@@ -1,14 +1,13 @@
-package com.example.demo
+package com.example.demo.controller
 
 import com.example.demo.service.GreetingService
-import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
-
 
 @RestController
 @RequestMapping("/api")

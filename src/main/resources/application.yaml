@@ -1,14 +1,26 @@
 spring:
   application:
     name: demo
-
+  datasource:
+    url: jdbc:h2:file:C:/Users/JBTG/test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+    show-sql: true
+  h2:
+    console:
+      enabled: true
 message: Hello from default env
 
 
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-
-message: Hello from prod env
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: prod
+#
+#message: Hello from prod env
