@@ -1,9 +1,9 @@
-package com.example.demo
+package com.example.demo.controller
 
 import com.example.demo.dto.CourseDTO
 import com.example.demo.entity.Course
 import com.example.demo.repository.ICourseRepository
-import utils.courseEntityList
+import com.example.demo.utils.courseEntityList
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
+import org.springframework.web.util.UriComponentsBuilder
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -44,7 +45,19 @@ class CourseControllerIntgTest {
     @Test
     fun retrieveAllCourses() {
         val courseDTOs =
-            webTestClient.get().uri("api/courses").exchange().expectStatus().isOk.expectBodyList(
+                webTestClient.get().uri("api/courses").exchange().expectStatus().isOk.expectBodyList(
+                        CourseDTO::class.java
+                ).returnResult().responseBody
+        Assertions.assertEquals(3, courseDTOs!!.size)
+    }
+
+    @Test
+    fun retrieveAllCourses_byName() {
+
+      val uri =  UriComponentsBuilder.fromUriString("api/courses").queryParam("course_name", "name").toUriString()
+
+        val courseDTOs =
+            webTestClient.get().uri(uri).exchange().expectStatus().isOk.expectBodyList(
                 CourseDTO::class.java
             ).returnResult().responseBody
         Assertions.assertEquals(3, courseDTOs!!.size)
